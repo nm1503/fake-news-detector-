@@ -6,289 +6,405 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
 
-/* ================= BODY ================= */
+/* ===== BACKGROUND ===== */
 body{
-    font-family:Segoe UI, sans-serif;
-    color:#0f172a;
-    background:linear-gradient(270deg,#020617,#1e3a8a,#4338ca,#2563eb);
-    background-size:600% 600%;
-    animation:bgMove 18s ease infinite;
-}
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    min-height:100vh;
+    background:
+        linear-gradient(rgba(15,23,42,0.9), rgba(15,23,42,0.9)),
+        url("https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg");
+    background-size:cover;
+    background-position:center;
+    color:#fff;
+    overflow-x:hidden;
 }
 
-/* ================= WORLD MAP ================= */
-.world-map{
-    position:fixed;
-    inset:0;
-    width:120%;
-    height:120%;
-    background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg") center/cover no-repeat;
-    opacity:0.07;
-    animation:globeFloat 40s linear infinite;
-    z-index:-2;
-}
-@keyframes globeFloat{
-    0%{transform:translate(0,0) scale(1)}
-    50%{transform:translate(-30px,-15px) scale(1.02)}
-    100%{transform:translate(0,0) scale(1)}
-}
-
-/* ================= HEADER ================= */
+/* ===== HEADER ===== */
 header{
     position:fixed;
     top:0;
     width:100%;
-    z-index:10;
-    background:rgba(15,23,42,.95);
-    backdrop-filter:blur(10px);
-    padding:12px 26px;
+    padding:12px 28px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    color:#fff;
+    background:rgba(15,23,42,0.92);
+    backdrop-filter:blur(10px);
+    z-index:100;
+    border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-/* FLOATING LOGO */
-.logo{
+.nav-left{
     display:flex;
     align-items:center;
     gap:10px;
-    font-size:22px;
-    animation:logoFloat 3s ease-in-out infinite;
 }
-.logo span{
-    font-size:28px;
+
+.nav-logo{
+    font-size:30px;
+    animation:floatLogo 3s ease-in-out infinite;
 }
-@keyframes logoFloat{
+
+@keyframes floatLogo{
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(-6px)}
 }
 
-nav a{
-    color:white;
-    margin-left:18px;
-    text-decoration:none;
-    font-weight:500;
+header h1{
+    font-size:20px;
+    letter-spacing:.4px;
 }
-nav a:hover{color:#93c5fd}
 
-/* ================= SECTIONS ================= */
-section{
-    padding:80px 20px; /* GAP REDUCED */
+/* ===== NEW NAV BUTTON DESIGN ===== */
+.nav-links{
+    display:flex;
+    gap:10px;
+}
+
+.nav-links button{
     position:relative;
-    z-index:1;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    color:white;
+    padding:8px 20px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:14px;
+    letter-spacing:.4px;
+    backdrop-filter:blur(8px);
+    transition:all .35s ease;
 }
-.center{max-width:1100px;margin:auto}
 
-/* ================= HERO ================= */
-.hero{
-    min-height:90vh; /* REDUCED */
+.nav-links button::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:4px;
+    width:0%;
+    height:2px;
+    background:#38bdf8;
+    transition:.35s ease;
+    transform:translateX(-50%);
+}
+
+.nav-links button:hover{
+    background:rgba(56,189,248,0.18);
+    box-shadow:0 0 15px rgba(56,189,248,0.35);
+}
+
+.nav-links button:hover::after{
+    width:60%;
+}
+
+/* ===== SECTIONS ===== */
+section{
+    min-height:100vh;
     display:flex;
     align-items:center;
+    justify-content:center;
+    padding:90px 20px 40px;
+    transition:.8s;
+}
+
+.hidden{
+    opacity:0;
+    transform:translateY(40px);
+    pointer-events:none;
+}
+
+.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ===== ROTATING GLOBE ===== */
+.globe-wrapper{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(56,189,248,0.6);
+    margin-bottom:14px;
+}
+
+.globe{
+    width:320px;
+    height:160px;
+    background:url("https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg");
+    background-size:cover;
+    animation:spin 18s linear infinite;
+}
+
+@keyframes spin{
+    from{transform:translateX(0)}
+    to{transform:translateX(-160px)}
+}
+
+/* ===== HOME ===== */
+.home{
+    flex-direction:column;
     text-align:center;
-    color:#fff;
 }
-.hero h2{
-    font-size:clamp(32px,5vw,50px);
-    margin-bottom:16px;
+
+.hero-badge{
+    padding:6px 20px;
+    border-radius:20px;
+    background:rgba(34,197,94,0.15);
+    color:#22c55e;
+    font-size:14px;
+    margin-bottom:14px;
 }
-.hero p{
-    font-size:18px;
-    max-width:800px;
-    margin:auto;
+
+.home h2{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.home p{
+    max-width:780px;
     line-height:1.6;
+    font-size:18px;
+    opacity:.92;
 }
 
-.cta{
-    margin-top:26px;
-    display:inline-block;
-    padding:14px 40px;
-    border-radius:50px;
-    background:linear-gradient(135deg,#2563eb,#4338ca);
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    transition:.3s;
-}
-.cta:hover{transform:scale(1.05)}
-
-/* ================= STEPS ================= */
-.steps{
+/* ===== GRID ===== */
+.hero-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:22px;
-    margin-top:30px;
-}
-.step{
-    background:rgba(255,255,255,.95);
-    padding:22px;
-    border-radius:16px;
-    box-shadow:0 20px 40px rgba(0,0,0,.25);
-    transition:.3s;
-}
-.step:hover{transform:translateY(-5px)}
-
-/* ================= WHY ================= */
-.why-box{
-    background:rgba(255,255,255,.95);
-    padding:30px;
-    border-radius:20px;
-    margin-top:24px;
-    box-shadow:0 25px 50px rgba(0,0,0,.3);
-    line-height:1.7;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-top:28px;
+    max-width:900px;
 }
 
-/* ================= ANALYZER ================= */
-.container{
-    background:rgba(255,255,255,.95);
-    padding:28px;
-    border-radius:20px;
-    box-shadow:0 30px 60px rgba(0,0,0,.35);
-}
-textarea{
-    width:100%;
-    height:140px;
-    padding:14px;
+.hero-box{
+    background:rgba(255,255,255,0.08);
+    padding:18px;
     border-radius:12px;
-    border:1px solid #cbd5e1;
-    margin-top:10px;
+    backdrop-filter:blur(6px);
 }
-.analyse-btn{
-    margin-top:18px;
-    display:inline-block;
-    padding:14px 40px;
-    border-radius:50px;
-    background:linear-gradient(135deg,#2563eb,#4338ca);
+
+.hero-box h4{
+    color:#38bdf8;
+    margin-bottom:6px;
+}
+
+.hero-box p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.home button{
+    margin-top:26px;
+    padding:14px 38px;
+    font-size:16px;
+    border-radius:30px;
+    border:none;
+    background:#22c55e;
     color:white;
     cursor:pointer;
 }
-.result{
-    margin-top:20px;
-    padding:14px;
-    font-size:20px;
-    font-weight:bold;
-    border-radius:14px;
-    text-align:center;
-    display:none;
-}
-.real{background:#34d399}
-.fake{background:#f87171}
 
-/* ================= FOOTER ================= */
-footer{
-    background:#020617;
-    color:white;
+/* ===== CARD ===== */
+.card{
+    background:rgba(255,255,255,0.96);
+    color:#111;
+    padding:26px;
+    border-radius:16px;
+    max-width:860px;
+    width:100%;
+    box-shadow:0 20px 40px rgba(0,0,0,0.35);
+}
+
+.card h2{
     text-align:center;
-    padding:16px;
+    margin-bottom:14px;
+}
+
+.card input,
+.card textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.card textarea{
+    height:140px;
+    resize:none;
+}
+
+.card button{
+    margin-top:16px;
+    width:100%;
+    padding:14px;
+    background:#2563eb;
+    border:none;
+    border-radius:10px;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* ===== RESULT ===== */
+.result{
+    margin-top:16px;
+    padding:14px;
+    border-radius:8px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.fake{background:#ef4444;color:white}
+.real{background:#22c55e;color:white}
+
+/* ===== CONFIDENCE BAR ===== */
+.meter{
+    margin-top:12px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.meter-fill{
+    height:14px;
+    width:0%;
+    background:linear-gradient(90deg,#22c55e,#38bdf8);
+    transition:width 1.2s ease;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:18px;
+    background:rgba(15,23,42,0.95);
     font-size:14px;
 }
 
-/* ================= MOBILE ================= */
+/* ===== RESPONSIVE ===== */
 @media(max-width:600px){
-    nav{display:none}
-    .hero{min-height:80vh}
+    .home h2{font-size:32px}
+    .globe-wrapper{width:120px;height:120px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="world-map"></div>
-
 <header>
-    <div class="logo">
-        <span>🕵️</span> Fake News Detector
+    <div class="nav-left">
+        <div class="nav-logo">🕵️‍♂️</div>
+        <h1>Fake News Detector</h1>
     </div>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#how">How</a>
-        <a href="#why">Why</a>
-        <a href="#analyze">Analyze</a>
+    <nav class="nav-links">
+        <button onclick="goHome()">Home</button>
+        <button onclick="goAnalyze()">Analyze</button>
+        <button onclick="goHow()">How It Works</button>
     </nav>
 </header>
 
-<section id="home" class="hero">
-    <div class="center">
-        <h2>Verify Before You Trust</h2>
-        <p>
-            Misinformation spreads globally within minutes during crises.
-            This tool helps you verify credibility ethically and transparently.
-        </p>
-        <a href="#how" class="cta">Start Walkthrough ↓</a>
+<section id="home" class="home visible">
+    <div class="globe-wrapper"><div class="globe"></div></div>
+    <div class="hero-badge">CRISIS INFORMATION VERIFICATION</div>
+    <h2>Verify Before You Trust</h2>
+    <p>
+        Misinformation spreads globally within minutes during crises.
+        This tool helps users verify credibility ethically and transparently
+        before sharing.
+    </p>
+
+    <div class="hero-grid">
+        <div class="hero-box"><h4>🔍 Source Awareness</h4><p>Evaluates credibility of sources.</p></div>
+        <div class="hero-box"><h4>⚖️ No Censorship</h4><p>Guidance without blocking content.</p></div>
+        <div class="hero-box"><h4>🧠 Explainable AI</h4><p>Transparent reasoning.</p></div>
+        <div class="hero-box"><h4>🌐 Crisis Ready</h4><p>Built for emergencies.</p></div>
     </div>
+
+    <button onclick="goAnalyze()">Start Verifying</button>
 </section>
 
-<section id="how">
-    <div class="center">
-        <h2>How It Works</h2>
-        <div class="steps">
-            <div class="step"><h3>1️⃣ Paste</h3><p>Paste any news or claim.</p></div>
-            <div class="step"><h3>2️⃣ Analyze</h3><p>Check language, source & time.</p></div>
-            <div class="step"><h3>3️⃣ Verdict</h3><p>Get REAL or FAKE transparently.</p></div>
-            <div class="step"><h3>4️⃣ Decide</h3><p>Think before sharing.</p></div>
-        </div>
-    </div>
-</section>
-
-<section id="why">
-    <div class="center">
-        <h2>Why This Matters</h2>
-        <div class="why-box">
-            Fake news during emergencies causes panic and harm.
-            This project empowers people with verification — not censorship.
-        </div>
-    </div>
-</section>
-
-<section id="analyze">
-    <div class="center container">
-        <h2>🔍 Analyze News</h2>
-        <textarea id="newsText" placeholder="Paste news content here..."></textarea>
-        <div class="analyse-btn" onclick="analyzeNews()">Analyse</div>
+<section id="analyze" class="hidden">
+    <div class="card">
+        <h2>Analyze News</h2>
+        <input type="url" id="sourceUrl" placeholder="News source URL (optional)">
+        <textarea id="newsText" placeholder="Paste the news content here..."></textarea>
+        <button onclick="analyzeNews()">Analyze</button>
         <div id="result" class="result"></div>
+        <div class="meter"><div id="confidenceBar" class="meter-fill"></div></div>
+    </div>
+</section>
+
+<section id="how" class="hidden">
+    <div class="card">
+        <h2>How It Works</h2>
+        <div class="hero-grid">
+            <div class="hero-box"><h4>📝 Input</h4><p>News text + URL.</p></div>
+            <div class="hero-box"><h4>🤖 ML Analysis</h4><p>Pattern detection.</p></div>
+            <div class="hero-box"><h4>🌐 Source Check</h4><p>Domain credibility.</p></div>
+            <div class="hero-box"><h4>📊 Verdict</h4><p>Confidence score.</p></div>
+        </div>
     </div>
 </section>
 
 <footer>
     © 2025 | Team <b>code.0</b><br>
-    Fake News Verification During Crisis — A project by Nalin & Lakshya,SRMIST
+    Nalin Manickam & Lakshya Mittal, <b>SRMIST</b>
 </footer>
 
 <script>
+function hideAll(){
+    home.classList.add("hidden");
+    analyze.classList.add("hidden");
+    how.classList.add("hidden");
+}
+function show(section){
+    section.classList.remove("hidden");
+    section.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function goHome(){hideAll();show(home)}
+function goAnalyze(){hideAll();show(analyze)}
+function goHow(){hideAll();show(how)}
+
 async function analyzeNews(){
-    const text=document.getElementById("newsText").value.trim();
+    const text=newsText.value.trim();
+    const url=sourceUrl.value.trim();
     const result=document.getElementById("result");
-    if(!text){alert("Please enter news");return;}
-    result.style.display="block";
-    result.innerText="Analyzing...";
+    const bar=document.getElementById("confidenceBar");
+
+    if(!text){alert("Please enter news content");return;}
+
+    result.innerText="🔄 Analyzing...";
+    result.className="result";
+    bar.style.width="0%";
+
     try{
         const res=await fetch("http://127.0.0.1:8000/detect",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({text})
+            body:JSON.stringify({text,source_url:url})
         });
         const data=await res.json();
-        if(data.verdict==="REAL"){
-            result.innerText="✅ REAL News";
-            result.className="result real";
+        const confidence=Math.round(data.confidence*100);
+        bar.style.width=confidence+"%";
+
+        if(data.verdict==="FAKE"){
+            result.innerText=`❌ FAKE NEWS\nConfidence: ${confidence}%`;
+            result.classList.add("fake");
         }else{
-            result.innerText="❌ FAKE News";
-            result.className="result fake";
+            result.innerText=`✅ REAL NEWS\nConfidence: ${confidence}%`;
+            result.classList.add("real");
         }
     }catch{
-        result.innerText="⚠ Backend not running";
-        result.className="result fake";
+        result.innerText="⚠️ Backend not running";
     }
 }
 </script>
 
 </body>
 </html>
-
