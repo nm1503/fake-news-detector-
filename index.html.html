@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fake News Detector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    /* ===== Body & Gradient Animation ===== */
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+        background: linear-gradient(270deg, #0f172a, #1e40af, #4338ca, #2563eb);
+        background-size: 800% 800%;
+        animation: gradientBG 20s ease infinite;
+    }
+
+    @keyframes gradientBG {
+        0% {background-position:0% 50%;}
+        50% {background-position:100% 50%;}
+        100% {background-position:0% 50%;}
+    }
+
+    /* ===== Header ===== */
+    header {
+        background-color: rgba(15, 23, 42, 0.95);
+        color: white;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+    .logo {
+        font-size: 40px;
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    header h1 { margin: 0; font-size: 28px; }
+
+    /* ===== Animated Home Section ===== */
+    .home {
+        text-align: center;
+        padding: 100px 20px 80px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .home h2 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        opacity: 0;
+        animation: slideIn 1.5s forwards;
+    }
+
+    .home p {
+        font-size: 20px;
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.6;
+        opacity: 0;
+        animation: fadeIn 2.5s forwards;
+        animation-delay: 1s;
+    }
+
+    @keyframes slideIn {
+        0% { transform: translateY(-50px); opacity: 0; }
+        100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    /* ===== Card Styling ===== */
+    .tagline {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        font-size: 16px;
+        margin: 30px auto;
+        max-width: 900px;
+        border-radius: 8px;
+        animation: fadeIn 2s forwards;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        animation: fadeIn 2s forwards;
+    }
+
+    h2 { color: #1e293b; }
+    textarea { width: 100%; height: 150px; padding: 12px; font-size: 15px; border-radius: 6px; border: 1px solid #ccc; resize: none; }
+
+    .note { margin-top: 15px; padding: 15px; background-color: #fef3c7; border-left: 5px solid #f59e0b; font-size: 14px; border-radius: 4px; }
+
+    .checks { margin-top: 25px; }
+    .checks ul { line-height: 1.8; }
+
+    .analyse-btn {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #2563eb;
+        color: white;
+        padding: 12px 32px;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.3s, transform 0.2s;
+    }
+    .analyse-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+
+    .result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    .fake { background-color: #f87171; color: white; }
+    .real { background-color: #34d399; color: white; }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(15, 23, 42, 0.95);
+        color: white;
+        margin-top: 50px;
+        font-size: 14px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🕵️‍♂️</div>
+    <div>
+        <h1>Fake News Detector</h1>
+        <small>Think Before You Share</small>
+    </div>
+</header>
+
+<!-- Animated Home Page -->
+<section class="home">
+    <h2>Verify Before You Trust</h2>
+    <p>
+        In times of crisis, misinformation spreads faster than facts.
+        This Fake News Detector helps users critically evaluate online content
+        using transparent, rule-based credibility checks — without censorship.
+    </p>
+</section>
+
+<div class="tagline">
+    A rule-based credibility checker designed to help users evaluate online information during emergencies.
+</div>
+
+<!-- Analysis Card -->
+<div class="container">
+    <h2>🔍 Analyze News Content</h2>
+    <p>Paste the news text or claim below:</p>
+
+    <textarea id="newsText" placeholder="Paste the news content here..."></textarea>
+
+    <div class="note">
+        ⚠️ This tool does <b>not censor or delete</b> content.
+        It encourages users to verify sources and think critically before sharing.
+    </div>
+
+    <div class="checks">
+        <h2>🧠 Credibility Checks</h2>
+        <ul>
+            <li>Source reliability and recognition</li>
+            <li>Sensational or emotional language</li>
+            <li>Date and time relevance</li>
+            <li>Consistency with known facts</li>
+            <li>Missing references or evidence</li>
+        </ul>
+
+        <div class="analyse-btn" onclick="analyzeNews()">Analyse</div>
+        <div id="result" class="result"></div>
+    </div>
+</div>
+
+<footer>
+    © 2025 | Team <b>code.0</b><br>
+    Fake News Verification During Crisis | A Project by Nalin & Lakshya
+</footer>
+
+<script>
+function analyzeNews() {
+    const text = document.getElementById('newsText').value.trim();
+    if(text === "") { alert("Please enter news content!"); return; }
+
+    const keywordsFake = ["shocking","miracle","fake","hoax","unbelievable"];
+    const isFake = keywordsFake.some(word => text.toLowerCase().includes(word));
+    const resultDiv = document.getElementById('result');
+
+    if(isFake) {
+        resultDiv.textContent = "❌ The news is likely FAKE!";
+        resultDiv.className = "result fake";
+    } else {
+        resultDiv.textContent = "✅ The news is likely REAL!";
+        resultDiv.className = "result real";
+    }
+}
+</script>
+
+</body>
+</html>
+ <script>
+async function analyzeNews() {
+
+    // 1. Read text from textarea
+    const text = document.getElementById("newsText").value.trim();
+    const resultDiv = document.getElementById("result");
+
+    if (text === "") {
+        alert("Please enter news content!");
+        return;
+    }
+
+    resultDiv.innerText = "Analyzing...";
+
+    // 2. Send data to FastAPI backend
+    const response = await fetch("http://127.0.0.1:8000/detect", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            text: text,
+            source_url: ""
+        })
+    });
+
+    // 3. Get response from ML model
+    const data = await response.json();
+
+    // 4. Show result on UI
+    if (data.verdict === "FAKE") {
+        resultDiv.innerText = "❌ FAKE News";
+    } 
+    else if (data.verdict === "REAL") {
+        resultDiv.innerText = "✅ REAL News";
+    } 
+    else {
+        resultDiv.innerText = "⚠️ UNCERTAIN";
+    }
+}
+</script>
