@@ -2,265 +2,292 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Fake News Detector</title>
+<title>Fake News Detector - A Project by Nalin & Lakshya | code.0</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-    /* ===== Body & Gradient Animation ===== */
-    body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #333;
-        background: linear-gradient(270deg, #0f172a, #1e40af, #4338ca, #2563eb);
-        background-size: 800% 800%;
-        animation: gradientBG 20s ease infinite;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 
-    @keyframes gradientBG {
-        0% {background-position:0% 50%;}
-        50% {background-position:100% 50%;}
-        100% {background-position:0% 50%;}
-    }
+/* ================= BODY ================= */
+body{
+    font-family:Segoe UI, sans-serif;
+    color:#0f172a;
+    background:linear-gradient(270deg,#020617,#1e3a8a,#4338ca,#2563eb);
+    background-size:600% 600%;
+    animation:bgMove 18s ease infinite;
+}
+@keyframes bgMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
 
-    /* ===== Header ===== */
-    header {
-        background-color: rgba(15, 23, 42, 0.95);
-        color: white;
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        position: sticky;
-        top: 0;
-        z-index: 10;
-    }
-    .logo {
-        font-size: 40px;
-        animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-    header h1 { margin: 0; font-size: 28px; }
+/* ================= WORLD MAP ================= */
+.world-map{
+    position:fixed;
+    inset:0;
+    width:120%;
+    height:120%;
+    background:url("https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg") center/cover no-repeat;
+    opacity:0.07;
+    animation:globeFloat 40s linear infinite;
+    z-index:-2;
+}
+@keyframes globeFloat{
+    0%{transform:translate(0,0) scale(1)}
+    50%{transform:translate(-30px,-15px) scale(1.02)}
+    100%{transform:translate(0,0) scale(1)}
+}
 
-    /* ===== Animated Home Section ===== */
-    .home {
-        text-align: center;
-        padding: 100px 20px 80px;
-        color: white;
-        position: relative;
-        overflow: hidden;
-    }
+/* ================= HEADER ================= */
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:10;
+    background:rgba(15,23,42,.95);
+    backdrop-filter:blur(10px);
+    padding:12px 26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff;
+}
 
-    .home h2 {
-        font-size: 48px;
-        margin-bottom: 20px;
-        opacity: 0;
-        animation: slideIn 1.5s forwards;
-    }
+/* FLOATING LOGO */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    animation:logoFloat 3s ease-in-out infinite;
+}
+.logo span{
+    font-size:28px;
+}
+@keyframes logoFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+}
 
-    .home p {
-        font-size: 20px;
-        max-width: 800px;
-        margin: auto;
-        line-height: 1.6;
-        opacity: 0;
-        animation: fadeIn 2.5s forwards;
-        animation-delay: 1s;
-    }
+nav a{
+    color:white;
+    margin-left:18px;
+    text-decoration:none;
+    font-weight:500;
+}
+nav a:hover{color:#93c5fd}
 
-    @keyframes slideIn {
-        0% { transform: translateY(-50px); opacity: 0; }
-        100% { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeIn {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }
+/* ================= SECTIONS ================= */
+section{
+    padding:80px 20px; /* GAP REDUCED */
+    position:relative;
+    z-index:1;
+}
+.center{max-width:1100px;margin:auto}
 
-    /* ===== Card Styling ===== */
-    .tagline {
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.9);
-        padding: 15px;
-        font-size: 16px;
-        margin: 30px auto;
-        max-width: 900px;
-        border-radius: 8px;
-        animation: fadeIn 2s forwards;
-    }
+/* ================= HERO ================= */
+.hero{
+    min-height:90vh; /* REDUCED */
+    display:flex;
+    align-items:center;
+    text-align:center;
+    color:#fff;
+}
+.hero h2{
+    font-size:clamp(32px,5vw,50px);
+    margin-bottom:16px;
+}
+.hero p{
+    font-size:18px;
+    max-width:800px;
+    margin:auto;
+    line-height:1.6;
+}
 
-    .container {
-        max-width: 900px;
-        margin: 30px auto;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
-        animation: fadeIn 2s forwards;
-    }
+.cta{
+    margin-top:26px;
+    display:inline-block;
+    padding:14px 40px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#2563eb,#4338ca);
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+.cta:hover{transform:scale(1.05)}
 
-    h2 { color: #1e293b; }
-    textarea { width: 100%; height: 150px; padding: 12px; font-size: 15px; border-radius: 6px; border: 1px solid #ccc; resize: none; }
+/* ================= STEPS ================= */
+.steps{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+    margin-top:30px;
+}
+.step{
+    background:rgba(255,255,255,.95);
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+    transition:.3s;
+}
+.step:hover{transform:translateY(-5px)}
 
-    .note { margin-top: 15px; padding: 15px; background-color: #fef3c7; border-left: 5px solid #f59e0b; font-size: 14px; border-radius: 4px; }
+/* ================= WHY ================= */
+.why-box{
+    background:rgba(255,255,255,.95);
+    padding:30px;
+    border-radius:20px;
+    margin-top:24px;
+    box-shadow:0 25px 50px rgba(0,0,0,.3);
+    line-height:1.7;
+}
 
-    .checks { margin-top: 25px; }
-    .checks ul { line-height: 1.8; }
+/* ================= ANALYZER ================= */
+.container{
+    background:rgba(255,255,255,.95);
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 30px 60px rgba(0,0,0,.35);
+}
+textarea{
+    width:100%;
+    height:140px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #cbd5e1;
+    margin-top:10px;
+}
+.analyse-btn{
+    margin-top:18px;
+    display:inline-block;
+    padding:14px 40px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#2563eb,#4338ca);
+    color:white;
+    cursor:pointer;
+}
+.result{
+    margin-top:20px;
+    padding:14px;
+    font-size:20px;
+    font-weight:bold;
+    border-radius:14px;
+    text-align:center;
+    display:none;
+}
+.real{background:#34d399}
+.fake{background:#f87171}
 
-    .analyse-btn {
-        display: inline-block;
-        margin-top: 20px;
-        background-color: #2563eb;
-        color: white;
-        padding: 12px 32px;
-        border-radius: 6px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        text-align: center;
-        transition: background 0.3s, transform 0.2s;
-    }
-    .analyse-btn:hover { background-color: #1d4ed8; transform: translateY(-2px); }
+/* ================= FOOTER ================= */
+footer{
+    background:#020617;
+    color:white;
+    text-align:center;
+    padding:16px;
+    font-size:14px;
+}
 
-    .result {
-        margin-top: 20px;
-        font-size: 20px;
-        font-weight: bold;
-        padding: 12px;
-        border-radius: 6px;
-        text-align: center;
-    }
-    .fake { background-color: #f87171; color: white; }
-    .real { background-color: #34d399; color: white; }
-
-    footer {
-        text-align: center;
-        padding: 20px;
-        background-color: rgba(15, 23, 42, 0.95);
-        color: white;
-        margin-top: 50px;
-        font-size: 14px;
-    }
+/* ================= MOBILE ================= */
+@media(max-width:600px){
+    nav{display:none}
+    .hero{min-height:80vh}
+}
 </style>
 </head>
+
 <body>
 
+<div class="world-map"></div>
+
 <header>
-    <div class="logo">🕵️‍♂️</div>
-    <div>
-        <h1>Fake News Detector</h1>
-        <small>Think Before You Share</small>
+    <div class="logo">
+        <span>🕵️</span> Fake News Detector
     </div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#how">How</a>
+        <a href="#why">Why</a>
+        <a href="#analyze">Analyze</a>
+    </nav>
 </header>
 
-<!-- Animated Home Page -->
-<section class="home">
-    <h2>Verify Before You Trust</h2>
-    <p>
-        In times of crisis, misinformation spreads faster than facts.
-        This Fake News Detector helps users critically evaluate online content
-        using transparent, rule-based credibility checks — without censorship.
-    </p>
+<section id="home" class="hero">
+    <div class="center">
+        <h2>Verify Before You Trust</h2>
+        <p>
+            Misinformation spreads globally within minutes during crises.
+            This tool helps you verify credibility ethically and transparently.
+        </p>
+        <a href="#how" class="cta">Start Walkthrough ↓</a>
+    </div>
 </section>
 
-<div class="tagline">
-    A rule-based credibility checker designed to help users evaluate online information during emergencies.
-</div>
-
-<!-- Analysis Card -->
-<div class="container">
-    <h2>🔍 Analyze News Content</h2>
-    <p>Paste the news text or claim below:</p>
-
-    <textarea id="newsText" placeholder="Paste the news content here..."></textarea>
-
-    <div class="note">
-        ⚠️ This tool does <b>not censor or delete</b> content.
-        It encourages users to verify sources and think critically before sharing.
+<section id="how">
+    <div class="center">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step"><h3>1️⃣ Paste</h3><p>Paste any news or claim.</p></div>
+            <div class="step"><h3>2️⃣ Analyze</h3><p>Check language, source & time.</p></div>
+            <div class="step"><h3>3️⃣ Verdict</h3><p>Get REAL or FAKE transparently.</p></div>
+            <div class="step"><h3>4️⃣ Decide</h3><p>Think before sharing.</p></div>
+        </div>
     </div>
+</section>
 
-    <div class="checks">
-        <h2>🧠 Credibility Checks</h2>
-        <ul>
-            <li>Source reliability and recognition</li>
-            <li>Sensational or emotional language</li>
-            <li>Date and time relevance</li>
-            <li>Consistency with known facts</li>
-            <li>Missing references or evidence</li>
-        </ul>
+<section id="why">
+    <div class="center">
+        <h2>Why This Matters</h2>
+        <div class="why-box">
+            Fake news during emergencies causes panic and harm.
+            This project empowers people with verification — not censorship.
+        </div>
+    </div>
+</section>
 
+<section id="analyze">
+    <div class="center container">
+        <h2>🔍 Analyze News</h2>
+        <textarea id="newsText" placeholder="Paste news content here..."></textarea>
         <div class="analyse-btn" onclick="analyzeNews()">Analyse</div>
         <div id="result" class="result"></div>
     </div>
-</div>
+</section>
 
 <footer>
     © 2025 | Team <b>code.0</b><br>
-    Fake News Verification During Crisis | A Project by Nalin & Lakshya
+    Fake News Verification During Crisis — Nalin & Lakshya
 </footer>
 
 <script>
-function analyzeNews() {
-    const text = document.getElementById('newsText').value.trim();
-    if(text === "") { alert("Please enter news content!"); return; }
-
-    const keywordsFake = ["shocking","miracle","fake","hoax","unbelievable"];
-    const isFake = keywordsFake.some(word => text.toLowerCase().includes(word));
-    const resultDiv = document.getElementById('result');
-
-    if(isFake) {
-        resultDiv.textContent = "❌ The news is likely FAKE!";
-        resultDiv.className = "result fake";
-    } else {
-        resultDiv.textContent = "✅ The news is likely REAL!";
-        resultDiv.className = "result real";
+async function analyzeNews(){
+    const text=document.getElementById("newsText").value.trim();
+    const result=document.getElementById("result");
+    if(!text){alert("Please enter news");return;}
+    result.style.display="block";
+    result.innerText="Analyzing...";
+    try{
+        const res=await fetch("http://127.0.0.1:8000/detect",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({text})
+        });
+        const data=await res.json();
+        if(data.verdict==="REAL"){
+            result.innerText="✅ REAL News";
+            result.className="result real";
+        }else{
+            result.innerText="❌ FAKE News";
+            result.className="result fake";
+        }
+    }catch{
+        result.innerText="⚠ Backend not running";
+        result.className="result fake";
     }
 }
 </script>
 
 </body>
 </html>
- <script>
-async function analyzeNews() {
-
-    // 1. Read text from textarea
-    const text = document.getElementById("newsText").value.trim();
-    const resultDiv = document.getElementById("result");
-
-    if (text === "") {
-        alert("Please enter news content!");
-        return;
-    }
-
-    resultDiv.innerText = "Analyzing...";
-
-    // 2. Send data to FastAPI backend
-    const response = await fetch("http://127.0.0.1:8000/detect", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            text: text,
-            source_url: ""
-        })
-    });
-
-    // 3. Get response from ML model
-    const data = await response.json();
-
-    // 4. Show result on UI
-    if (data.verdict === "FAKE") {
-        resultDiv.innerText = "❌ FAKE News";
-    } 
-    else if (data.verdict === "REAL") {
-        resultDiv.innerText = "✅ REAL News";
-    } 
-    else {
-        resultDiv.innerText = "❌ FAKE News ";
-    }
-}
-</script>
-
